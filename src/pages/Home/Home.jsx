@@ -1,9 +1,15 @@
+import Banner from "./Banner/Banner";
+import Partners from "./Partners/Partners";
+import PopularCourses from "./PopularCourses/PopularCourses";
 
 
 const Home = () => {
     return (
-        <div>
-            <h2 className="text-3xl">This is home page</h2>
+        <div className="my-2">
+            
+            <Banner />
+            <Partners />
+            <PopularCourses />
         </div>
     );
 };
