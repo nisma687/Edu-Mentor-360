@@ -1,17 +1,69 @@
 
-import { Link } from "react-router-dom";
-import { FaGoogle } from "react-icons/fa";
-import { useForm } from "react-hook-form"
+import { Link, useNavigate } from "react-router-dom";
+// import { FaGoogle } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+// import { useAuth } from "../../hooks/useAuth";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider/AuthProvider";
+import SocialLogin from "../../shared/SocialLogin/socialLogin";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
     const {
         register,
         handleSubmit,
-      
+        reset,
         formState: { errors },
       } = useForm();
+      const navigate=useNavigate();
+      const axiosSecure=useAxiosSecure();
+      const {createUser,updateUserProfile}=useContext(AuthContext);
       const onSubmit = (data) => {
-        console.log(data)}
+        console.log(data);
+        const userInfo= {
+          email:data.email,
+          name:data.name,
+          photoURL:data.photoURL,
+        }
+        createUser(data.email,data.password)
+        .then((result)=>{
+          console.log(result);
+          updateUserProfile(data.name,data.photoURL)
+          .then((result)=>{
+            console.log(result);
+            
+            axiosSecure.post("/users",userInfo)
+          .then((res)=>{
+            console.log(res);
+            if(res.data.insertedId){
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User Created Successfully",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate("/");
+            }
+           
+          })
+          .catch((error)=>{
+            console.log(error);
+          })
+           
+
+          })
+          .catch((error)=>{
+            console.log(error);
+          })
+
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+      }
     return (
         <div className="hero min-h-screen bg-base-200 ">
         <div className="hero-content flex-col lg:flex-row">
@@ -65,17 +117,16 @@ const SignUp = () => {
                      errors.password?.type==="minLength" && <span className="text-red-600">Password should be more than 8 characters</span>
                  }
               </div>
-              <div className="form-control mt-6">
+              <div className="form-control">
               <label className="label">
-                  <span className="label-text">Photo Url</span>
-                </label>
-              <input type="file" 
-                name="photoURL"
-                {...register("photoURL", { required: true })}
-              className="file-input w-full max-w-xs" />
-               {errors.photoURL && <span className="text-red-600">Photo Url is required</span>}
-      
-              </div>
+          
+                <span className="label-text">Photo Url</span>
+              </label>
+              <input 
+              type="text"  {...register("photoURL", { required: true })}
+               name="photoURL" placeholder="Your Photo Url" className="input input-bordered" />
+              {errors.photoURL && <span className="text-red-600">Photo Url is required</span>}
+            </div>
               <div className="form-control mt-6">
                 
               <input type="submit"
@@ -84,13 +135,8 @@ const SignUp = () => {
               
       
               </div>
-              <div>
-                <button
-               
-                className="btn btn-ghost btn-sm btn-block mt-4"
-                >
-                    <FaGoogle />
-                Sign Up With Google</button>
+              <div className="flex justify-center">
+                <SocialLogin />
               </div>
             </form>
             <p className="text-center font-semibold mb-4">New to here?Please<Link to="/signIn" className="underline text-orange-600">Sign In</Link></p>

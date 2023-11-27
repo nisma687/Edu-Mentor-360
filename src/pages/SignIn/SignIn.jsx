@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
-import { FaGoogle } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+
 import { useForm } from "react-hook-form"
+import useAuth from "../../hooks/useAuth";
+import SocialLogin from "../../shared/SocialLogin/socialLogin";
 const SignIn = () => {
     const {
         register,
@@ -8,8 +10,20 @@ const SignIn = () => {
       
         formState: { errors },
       } = useForm();
+      const navigate=useNavigate();
+      const {logIn}=useAuth();
       const onSubmit = (data) => {
-        console.log(data)}
+        console.log(data);
+        logIn(data.email,data.password)
+        .then((result)=>{
+          console.log(result);
+          navigate("/");
+
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+      }
     return (
         <div className="hero min-h-screen bg-base-200 ">
         <div className="hero-content flex-col lg:flex-row">
@@ -63,13 +77,8 @@ const SignIn = () => {
               
       
               </div>
-              <div>
-                <button
-               
-                className="btn btn-ghost btn-sm btn-block mt-4"
-                >
-                    <FaGoogle />
-                Sign In With Google</button>
+              <div className="flex justify-center">
+               <SocialLogin />
               </div>
             </form>
             <p className="text-center font-semibold mb-4">New to here?Please<Link to="/signUp" className="underline text-orange-600">Sign Up</Link></p>

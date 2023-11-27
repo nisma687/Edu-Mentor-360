@@ -1,7 +1,28 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { GiTeacher } from "react-icons/gi";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const {user,logOut}=useAuth();
+  const navigate=useNavigate();
+  const handleLogOut=()=>{
+    logOut()
+    .then((result)=>{
+      console.log(result);
+      Swal.fire({
+        position: "middle",
+        icon: "success",
+        title: "LogOut Successfully",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      navigate("/");
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
     const navlinks=<>
         <li><NavLink to="/">Home</NavLink></li>
         
@@ -41,18 +62,31 @@ const Navbar = () => {
   <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          {user?
+          <img src={user?.photoURL} alt=""/>
+          :<img alt="Default Picture" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />}
         </div>
       </div>
       <ul className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-        <li>
+       { user && <li>
           <a className="justify-between">
             Profile
             <span className="badge">New</span>
           </a>
-        </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        </li>}
+        {user && <li className="disabled">
+          <p className="mt-2 mb-2 font-bold">
+            {user?.displayName}
+          </p>
+          </li>}
+        {user && <li><a>DashBoard</a></li>}
+        
+       {user ? <li><button
+        onClick={handleLogOut}
+        className="btn btn-primary">
+        LogOut</button></li>:
+        <li><NavLink to="/signIn">Sign In</NavLink></li>
+        }
       </ul>
     </div>
 
