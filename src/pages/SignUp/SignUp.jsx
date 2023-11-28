@@ -47,6 +47,7 @@ const SignUp = () => {
               });
               navigate("/");
             }
+            navigate("/");
            
           })
           .catch((error)=>{
@@ -65,7 +66,9 @@ const SignUp = () => {
         })
       }
     return (
-        <div className="hero min-h-screen bg-base-200 ">
+        <div className="hero
+        mt-10 
+         min-h-screen bg-base-200 ">
         <div className="hero-content flex-col lg:flex-row">
           <div className=" w-1/2 mr-12">
              <img src=

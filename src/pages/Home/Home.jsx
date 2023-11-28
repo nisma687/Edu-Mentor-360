@@ -1,6 +1,7 @@
 import Banner from "./Banner/Banner";
 import Partners from "./Partners/Partners";
 import PopularCourses from "./PopularCourses/PopularCourses";
+import TeacherSection from "./TeacherSection/TeacherSection";
 
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
             <Banner />
             <Partners />
             <PopularCourses />
+            <TeacherSection />
         </div>
     );
 };

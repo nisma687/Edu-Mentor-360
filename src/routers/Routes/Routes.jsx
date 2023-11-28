@@ -8,6 +8,8 @@ import Home from "../../pages/Home/Home";
 import SignIn from "../../pages/SignIn/SignIn";
 import SignUp from "../../pages/SignUp/SignUp";
 import DashBoard from "../../layout/DashBoard/DashBoard";
+import TeachOnEdu from "../../pages/TeachOnEdu/TeachOnEdu";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -25,6 +27,12 @@ import DashBoard from "../../layout/DashBoard/DashBoard";
           path: "/signUp",
           element: <SignUp/>,
         },
+        {
+          path:"/teachOnEduMentor",
+          element:<PrivateRoute>
+            <TeachOnEdu/>
+          </PrivateRoute>
+        }
       ]
     },
     {

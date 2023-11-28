@@ -3,12 +3,12 @@ import img from "../../../assets/img/EduMentor360.jpg";
 import { FaRegSmileBeam } from "react-icons/fa";
 const Banner = () => {
     return (
-        <div className=" mb-2">
+        <div className=" mb-2 mt-2">
           <div className="hero
-            bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%
-            text-white opacity-90 
-            font-semibold italic
-            min-h-screen 
+            
+             text-white 
+             font-semibold italic
+             min-h-screen
           w-full h-[600px]
             bg-cover bg-center" style=
             

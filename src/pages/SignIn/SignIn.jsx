@@ -1,31 +1,47 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form"
 import useAuth from "../../hooks/useAuth";
 import SocialLogin from "../../shared/SocialLogin/socialLogin";
+import { useState } from "react";
 const SignIn = () => {
+
+  const [successMessage,setSuccessMessage]=useState('');
+
+   const location=useLocation();
+   console.log(location);
+    const navigate=useNavigate();
+    const from=location.state?.from?.pathname || "/";
     const {
         register,
         handleSubmit,
       
         formState: { errors },
       } = useForm();
-      const navigate=useNavigate();
+     
       const {logIn}=useAuth();
       const onSubmit = (data) => {
         console.log(data);
         logIn(data.email,data.password)
         .then((result)=>{
           console.log(result);
-          navigate("/");
+         
+          setSuccessMessage("User Logged In Successfully");
+          navigate(from,{replace:true});
+          
 
         })
         .catch((error)=>{
           console.log(error);
         })
+        
+
       }
     return (
-        <div className="hero min-h-screen bg-base-200 ">
+        <div className="hero
+        mt-10
+         min-h-screen bg-base-200 ">
+         
         <div className="hero-content flex-col lg:flex-row">
           <div className=" w-1/2 mr-12">
              <img src=
@@ -39,6 +55,7 @@ const SignIn = () => {
            onSubmit={handleSubmit(onSubmit)}
       
              className="card-body">
+            
             <h1 className="text-2xl font-bold text-center">Please Sign In</h1>
              
               <div className="form-control">
@@ -82,6 +99,7 @@ const SignIn = () => {
               </div>
             </form>
             <p className="text-center font-semibold mb-4">New to here?Please<Link to="/signUp" className="underline text-orange-600">Sign Up</Link></p>
+            <p className="text-center font-semibold text-green-600">{successMessage}</p>
             
           </div>
         </div>

@@ -27,12 +27,15 @@ const Navbar = () => {
         <li><NavLink to="/">Home</NavLink></li>
         
         <li><NavLink>All Classes</NavLink></li>
-        <li><NavLink>Teach On EduMentor360</NavLink></li>
-        <li><NavLink to="/signIn">Sign In</NavLink></li>
+        <li><NavLink
+        to="/teachOnEduMentor"
+        >Teach On EduMentor360</NavLink></li>
+       {!user && <li><NavLink to="/signIn">Sign In</NavLink></li>}
     </>;
     return (
         <div>
             <div className="navbar 
+            h-[70px]
             bg-gradient-to-l from-indigo-500 
             opacity-90
              bg-base-100">
