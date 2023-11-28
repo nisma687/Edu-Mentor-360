@@ -1,7 +1,13 @@
 import { NavLink, Outlet } from "react-router-dom";
+import useTeacher from "../../hooks/useTeacher";
 
 
 const DashBoard = () => {
+    const [teacher,refetch]=useTeacher();
+    console.log(teacher.role);
+    const isTeacher=teacher.role==="teacher";
+    console.log(isTeacher);
+    
     return (
         <div className="flex">
         {/* sidebar */}
@@ -12,8 +18,18 @@ const DashBoard = () => {
         min-h-screen ">
     <ul className="menu mt-12 ml-10">
      
-       
-       
+       {
+        isTeacher && <li>
+
+        <NavLink
+           to="/dashboard/teacher/addCourse"
+        className="uppercase"
+         >
+            Add Course
+           </NavLink>
+     </li>
+       }
+       {/* admin routes */}
         <li>
 
          <NavLink
@@ -21,6 +37,15 @@ const DashBoard = () => {
          className="uppercase"
           >
           Teacher Requests
+            </NavLink>
+      </li>
+        <li>
+
+         <NavLink
+            to="/dashboard/courseRequests"
+         className="uppercase"
+          >
+          Course Requests
             </NavLink>
       </li>
 

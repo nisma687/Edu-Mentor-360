@@ -21,6 +21,8 @@ const TeachOnEdu = () => {
             photoURL:data.photoURL,
             category:data.category,
             experience:data.experience,
+            title:data.title,
+            status:data.status,
             
 
         };
@@ -110,6 +112,7 @@ const TeachOnEdu = () => {
           defaultValue={user?.displayName}
            className="input input-bordered" required />
         </div>
+        
         <div className="form-control">
           <label className="label">
             <span className="label-text font-semibold">Email:</span>
@@ -119,6 +122,27 @@ const TeachOnEdu = () => {
             {...register("email", { required: true })}
           placeholder="Your Email" className="input input-bordered" required />
         </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-semibold">Title:</span>
+          </label>
+          <input type="text" 
+            
+            {...register("title", { required: true })}
+          placeholder="Title please" className="input input-bordered" required />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-semibold">Status:</span>
+          </label>
+          <input type="text" 
+           value={"Pending"}
+            {...register("status", { required: true })}
+          placeholder="Status" className="input input-bordered" required />
+        </div>
+
         <div className="form-control">
           <label className="label">
             <span className="label-text font-semibold">

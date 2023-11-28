@@ -1,32 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-// import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useCourse from "../../../hooks/useCourse";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-const RequestsTeacher = () => {
-    // const {user}=useAuth();
+
+const CourseRequest = () => {
+    const [course,refetch]=useCourse();
     const axiosSecure=useAxiosSecure();
-    const {data:request=[],isLoading,refetch}=useQuery({
-        queryKey:["requestsTeacher"],
-        queryFn:async()=>{
-            const res=await axiosSecure.get("/teacherRequest");
-            return res.data;
-
-        }
-
-    });
-
-    if(isLoading){
-        return <div className="text-center">loading...</div>;
-    }
-
-
     const handleApprove=async(id)=>{
         console.log("approve",id);
         const info={
             status:"Approved"
         }
-      const res=await axiosSecure.patch(`/teacherRequest/${id}`,info);
+      const res=await axiosSecure.patch(`/addCourseRequest/${id}`,info);
         console.log(res.data);
         if(res.data.modifiedCount){
             refetch();
@@ -47,41 +32,31 @@ const RequestsTeacher = () => {
 
     const handleReject=async(id)=>{
         console.log("reject",id);
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-          }).then(async(result) => {
-            if (result.isConfirmed) {
-                const res=await axiosSecure.delete(`/teacherRequest/${id}`);
-                console.log(res.data);
-                if(res.data.deletedCount){
-                    refetch();
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                      });
-        
-                }
-             
-            }
-          });
+        const info={
+            status:"Rejected"
+        }
+      const res=await axiosSecure.patch(`/addCourseRequest/${id}`,info);
+        console.log(res.data);
+        if(res.data.modifiedCount){
+            refetch();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Approval Done Successfully",
+                showConfirmButton: false,
+                timer: 1500
+              });
+
+        }
+       
         
         
 
     }
 
-
-
-
     return (
         <div>
-            will show the requested teachers:{request.length}
+            will show the requested courses:{course.length}
             <div>
             <div className="overflow-x-auto">
   <table className="table">
@@ -92,10 +67,11 @@ const RequestsTeacher = () => {
           
         </th>
         <th>Image</th>
-        <th>Name</th>
-        <th>Experience</th>
-        <th>Title</th>
-        <th>Category</th>
+        <th>Course Title</th>
+        <th>Name </th>
+        <th>Email</th>
+        <th>Price</th>
+        <th>Description</th>
         <th>Status</th>
         <th>Actions</th>
         <th>Actions</th>
@@ -105,7 +81,7 @@ const RequestsTeacher = () => {
     <tbody>
       {/* row 1 */}
         {
-            request.map((item,index)=><tr key={item._id}>
+            course.map((item,index)=><tr key={item._id}>
                 <th>
                   {index+1}
                 </th>
@@ -120,12 +96,13 @@ const RequestsTeacher = () => {
                   </div>
                 </td>
                 <td>
-                    <span className="text-sm font-semibold">{item?.name}</span>
+                    <span className="text-sm font-semibold">{item?.title}</span>
                   
                 </td>
-                <td>{item?.experience}</td>
-                <td>{item?.title}</td>
-                <td>{item?.category}</td>
+                <td>{item?.name}</td>
+                <td>{item?.email}</td>
+                <td>{item?.price}</td>
+                <td>{item?.description}</td>
                 <td>{item?.status}</td>
                 <th>
                   <button 
@@ -137,11 +114,21 @@ const RequestsTeacher = () => {
                 </th>
                 <th>
                   <button 
-                    disabled={item?.status==="Rejected"}
                     onClick={()=>handleReject(item._id)}
+                    disabled={item?.status==="Rejected"}
+                    
                   className="btn 
                     bg-red-700
                   btn-ghost btn-xs">Reject</button>
+                </th>
+                <th>
+                  <button 
+                    disabled={item?.status==="Rejected" 
+                    || item?.status==="Pending"}
+                    
+                  className="btn 
+                    bg-blue-500
+                  btn-ghost btn-xs">See Progress</button>
                 </th>
               </tr>)
         }
@@ -154,11 +141,6 @@ const RequestsTeacher = () => {
             </div>
         </div>
     );
-
-
-
-
-
 };
 
-export default RequestsTeacher;
+export default CourseRequest;

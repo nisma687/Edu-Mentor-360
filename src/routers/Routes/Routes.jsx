@@ -11,6 +11,8 @@ import DashBoard from "../../layout/DashBoard/DashBoard";
 import TeachOnEdu from "../../pages/TeachOnEdu/TeachOnEdu";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import RequestsTeacher from "../../layout/DashBoard/RequestsTeacher/RequestsTeacher";
+import AddCourse from "../../layout/DashBoard/AddCourse/AddCourse";
+import CourseRequest from "../../layout/DashBoard/CourseRequest/CourseRequest";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -46,7 +48,16 @@ import RequestsTeacher from "../../layout/DashBoard/RequestsTeacher/RequestsTeac
        {
         path:"/dashboard/teacherRequests",
         element:<RequestsTeacher  />
-       }
+       },
+       {
+        path:"/dashboard/courseRequests",
+        element:<CourseRequest/>
+       },
+      //  teacher
+       {
+        path:"/dashboard/teacher/addCourse",
+        element:<AddCourse/>
+      },
       ]
 
      
