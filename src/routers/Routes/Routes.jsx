@@ -10,6 +10,7 @@ import SignUp from "../../pages/SignUp/SignUp";
 import DashBoard from "../../layout/DashBoard/DashBoard";
 import TeachOnEdu from "../../pages/TeachOnEdu/TeachOnEdu";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import RequestsTeacher from "../../layout/DashBoard/RequestsTeacher/RequestsTeacher";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -37,7 +38,17 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
     },
     {
       path:"/dashboard",
-      element: <DashBoard/>
+      element: <PrivateRoute>
+        <DashBoard/>
+      </PrivateRoute>,
+      children:[
+      // admin
+       {
+        path:"/dashboard/teacherRequests",
+        element:<RequestsTeacher  />
+       }
+      ]
+
      
     }
   ]);
