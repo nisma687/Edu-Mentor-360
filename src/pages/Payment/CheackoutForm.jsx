@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import useCourse from "../../hooks/useCourse";
+// import useCourse from "../../hooks/useCourse";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -106,7 +106,7 @@ const handleSubmit = async (event) => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                window.location.reload();
+                // window.location.reload();
                 navigate('/dashboard/myCourses');
             }
 

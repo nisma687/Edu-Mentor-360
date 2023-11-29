@@ -5,17 +5,18 @@ import useStudent from "../../hooks/useStudent";
 
 
 const DashBoard = () => {
-    const [teacher,refetch]=useTeacher();
-    console.log(teacher.role);
+    const [teacher]=useTeacher();
+   //  console.log(teacher.role);
     const isTeacher=teacher.role==="teacher";
-    console.log(isTeacher);
+   //  console.log(isTeacher);
     const {user}=useAuth();
     const {student}=useStudent();
-    console.log(student);
+   //  console.log(student);
    
-    const isStudent=user.role==="student";
-    console.log(isStudent);
-   const isAdmin=user.role==="admin";
+    const isStudent=user?.role==="student";
+   //  console.log(isStudent);
+   const isAdmin=user?.role==="admin";
+   // console.log(isAdmin);
     
     return (
         <div className="flex">
@@ -38,9 +39,11 @@ const DashBoard = () => {
            </NavLink>
      </li>
        }
-       {/* admin routes */}
-        <li>
 
+       {/* admin routes */}
+      {    !student && !isTeacher &&
+            <>
+              <li>
          <NavLink
             to="/dashboard/teacherRequests"
          className="uppercase"
@@ -48,7 +51,7 @@ const DashBoard = () => {
           Teacher Requests
             </NavLink>
       </li>
-        <li>
+      <li>
 
          <NavLink
             to="/dashboard/courseRequests"
@@ -57,6 +60,9 @@ const DashBoard = () => {
           Course Requests
             </NavLink>
       </li>
+            </>
+      }
+      
        {/* user routes */}
 
          {   student && <li>

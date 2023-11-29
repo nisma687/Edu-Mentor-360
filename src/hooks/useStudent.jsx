@@ -13,7 +13,7 @@ const useStudent = () => {
     useEffect(()=>{
         axiosSecure.get(`/payments/${user?.email}`)
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             setStudent(res.data);
             setLoading(false);
             const userinfo={
@@ -21,7 +21,7 @@ const useStudent = () => {
             }
             axiosSecure.patch(`/users/${user?.email}`,userinfo)
             .then(res=>{
-                console.log(res.data);
+                // console.log(res.data);
                 
             })
             .catch(err=>{

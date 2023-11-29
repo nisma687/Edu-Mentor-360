@@ -17,7 +17,9 @@ import AllClasses from "../../pages/AllClasses/AllClasses";
 import CourseDetails from "../../pages/CourseDetails/CourseDetails";
 import { axiosPublic } from "../../hooks/useAxios";
 import Payment from "../../pages/Payment/Payment";
-import MyCourses from "../../layout/DashBoard/MyCourses/MyCourses";
+import MyCourses 
+from "../../layout/DashBoard/MyCourses/MyCourses";
+import MyEnrollClass from "../../layout/DashBoard/MyEnrollClass/MyEnrollClass";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -39,6 +41,7 @@ import MyCourses from "../../layout/DashBoard/MyCourses/MyCourses";
           path:"/allClass",
           element:<AllClasses/>
         },
+
         {
           path:"/courseDetails/:id",
           element:<PrivateRoute>
@@ -87,6 +90,11 @@ import MyCourses from "../../layout/DashBoard/MyCourses/MyCourses";
       {
         path:"/dashboard/myCourses",
         element:<MyCourses/>
+      },
+      {
+        path:"/dashboard/CourseDetails/:id",
+        element:<MyEnrollClass/>,
+       
       }
       ]
 

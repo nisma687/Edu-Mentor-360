@@ -3,17 +3,47 @@ import { AuthContext } from "../../providers/AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import
+ useTeacher from "../../hooks/useTeacher";
+
+import
+ { useNavigate } from "react-router-dom";
 // import Tittle from "../../component/Tittle";
 
 const TeachOnEdu = () => {
     const {user} = useContext(AuthContext);
+    const navigate=useNavigate();
     const {
         register,
         handleSubmit,
       
         
       } = useForm();
+      const [teacher]=useTeacher();
+      const isTeacher=teacher.role==="teacher";
       const axiosSecure=useAxiosSecure();
+      if(isTeacher)
+      {
+        Swal.fire({
+            title: "You are already a teacher",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `
+            }
+          });
+          return navigate("/");
+      }
+      
       const onSubmit = (data) => {
         console.log(data);
         const teachInfo={
@@ -27,6 +57,7 @@ const TeachOnEdu = () => {
             
 
         };
+
         axiosSecure.post("/teacherRequest",teachInfo)
         .then((res)=>{
             console.log(res.data);
