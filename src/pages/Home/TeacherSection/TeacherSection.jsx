@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 const TeacherSection = () => {
     return (
-        <div>
+        <div className="my-5">
             <Tittle
+            className="mt-4"
             heading="Want to be a Teacher??"
             subHeading="We are always looking for talented teachers to join our team."
             ></Tittle>
