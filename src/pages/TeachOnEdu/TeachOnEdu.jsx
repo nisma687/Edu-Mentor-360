@@ -3,6 +3,7 @@ import { AuthContext } from "../../providers/AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+// import Tittle from "../../component/Tittle";
 
 const TeachOnEdu = () => {
     const {user} = useContext(AuthContext);
@@ -74,11 +75,12 @@ const TeachOnEdu = () => {
         // console.log(teachInfo);
     }
     return (
-        <div className="">
+        <div className="my-20">
           <div className="hero 
           bg-gray-100
           
           ">
+          
 
   <div className="hero-content flex-col
   text-center 

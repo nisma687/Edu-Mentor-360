@@ -26,7 +26,7 @@ const Navbar = () => {
     const navlinks=<>
         <li><NavLink to="/">Home</NavLink></li>
         
-        <li><NavLink>All Classes</NavLink></li>
+        <li><NavLink to="/allClass">All Classes</NavLink></li>
         <li><NavLink
         to="/teachOnEduMentor"
         >Teach On EduMentor360</NavLink></li>
@@ -75,12 +75,7 @@ const Navbar = () => {
         </div>
       </div>
       <ul className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-       { user && <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>}
+      
         {user && <li className="disabled">
           <p className="mt-2 mb-2 font-bold">
             {user?.displayName}

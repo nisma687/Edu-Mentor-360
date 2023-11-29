@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import useTeacher from "../../hooks/useTeacher";
+import useAuth from "../../hooks/useAuth";
+import useStudent from "../../hooks/useStudent";
 
 
 const DashBoard = () => {
@@ -7,6 +9,13 @@ const DashBoard = () => {
     console.log(teacher.role);
     const isTeacher=teacher.role==="teacher";
     console.log(isTeacher);
+    const {user}=useAuth();
+    const {student}=useStudent();
+    console.log(student);
+   
+    const isStudent=user.role==="student";
+    console.log(isStudent);
+   const isAdmin=user.role==="admin";
     
     return (
         <div className="flex">
@@ -48,8 +57,18 @@ const DashBoard = () => {
           Course Requests
             </NavLink>
       </li>
+       {/* user routes */}
 
-   
+         {   student && <li>
+
+               <NavLink
+                  to="/dashboard/myCourses"
+               className="uppercase"
+               >
+               My Courses
+                  </NavLink>
+               </li>
+         }
     
        
      

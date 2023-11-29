@@ -13,6 +13,11 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import RequestsTeacher from "../../layout/DashBoard/RequestsTeacher/RequestsTeacher";
 import AddCourse from "../../layout/DashBoard/AddCourse/AddCourse";
 import CourseRequest from "../../layout/DashBoard/CourseRequest/CourseRequest";
+import AllClasses from "../../pages/AllClasses/AllClasses";
+import CourseDetails from "../../pages/CourseDetails/CourseDetails";
+import { axiosPublic } from "../../hooks/useAxios";
+import Payment from "../../pages/Payment/Payment";
+import MyCourses from "../../layout/DashBoard/MyCourses/MyCourses";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -29,6 +34,26 @@ import CourseRequest from "../../layout/DashBoard/CourseRequest/CourseRequest";
         {
           path: "/signUp",
           element: <SignUp/>,
+        },
+        {
+          path:"/allClass",
+          element:<AllClasses/>
+        },
+        {
+          path:"/courseDetails/:id",
+          element:<PrivateRoute>
+            <CourseDetails/>
+          </PrivateRoute>,
+          loader:({params})=>axiosPublic.get(`/addCourseRequest/${params.id}`)
+          
+
+        },
+        {
+          path:"/payment/:id",
+          element:<PrivateRoute>
+            <Payment/>
+          </PrivateRoute>,
+          loader:({params})=>axiosPublic.get(`/addCourseRequest/${params.id}`)
         },
         {
           path:"/teachOnEduMentor",
@@ -58,6 +83,11 @@ import CourseRequest from "../../layout/DashBoard/CourseRequest/CourseRequest";
         path:"/dashboard/teacher/addCourse",
         element:<AddCourse/>
       },
+      // user
+      {
+        path:"/dashboard/myCourses",
+        element:<MyCourses/>
+      }
       ]
 
      

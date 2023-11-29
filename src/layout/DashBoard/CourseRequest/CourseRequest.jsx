@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import useCourse from "../../../hooks/useCourse";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const CourseRequest = () => {
@@ -42,7 +43,7 @@ const CourseRequest = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Approval Done Successfully",
+                title: "Rejection Done Successfully",
                 showConfirmButton: false,
                 timer: 1500
               });
@@ -122,13 +123,15 @@ const CourseRequest = () => {
                   btn-ghost btn-xs">Reject</button>
                 </th>
                 <th>
-                  <button 
+                 <Link to={`/courseDetails/${item._id}`}>
+                 <button 
                     disabled={item?.status==="Rejected" 
                     || item?.status==="Pending"}
                     
                   className="btn 
                     bg-blue-500
                   btn-ghost btn-xs">See Progress</button>
+                 </Link>
                 </th>
               </tr>)
         }
