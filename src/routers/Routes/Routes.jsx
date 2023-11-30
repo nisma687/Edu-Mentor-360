@@ -20,6 +20,11 @@ import Payment from "../../pages/Payment/Payment";
 import MyCourses 
 from "../../layout/DashBoard/MyCourses/MyCourses";
 import MyEnrollClass from "../../layout/DashBoard/MyEnrollClass/MyEnrollClass";
+import Users from "../../layout/DashBoard/Users/Users";
+import MyProfile from "../../layout/DashBoard/MyProfile/MyProfile";
+import TeacherMyCourse from "../../layout/DashBoard/TeacherMyCourse/TeacherMyCourse";
+import TeacherMyCourseUpdate from "../../layout/DashBoard/TeacherMyCourse/TeacherMyCourseUpdate";
+import Error from "../../pages/Error/Error";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -86,6 +91,14 @@ import MyEnrollClass from "../../layout/DashBoard/MyEnrollClass/MyEnrollClass";
         path:"/dashboard/teacher/addCourse",
         element:<AddCourse/>
       },
+      {
+        path:"/dashboard/teacher/myCourses",
+        element:<TeacherMyCourse/>
+      },
+      {
+        path:"/dashboard/teacher/myCourses/:id",
+        element:<TeacherMyCourseUpdate/>
+      },
       // user
       {
         path:"/dashboard/myCourses",
@@ -95,10 +108,22 @@ import MyEnrollClass from "../../layout/DashBoard/MyEnrollClass/MyEnrollClass";
         path:"/dashboard/CourseDetails/:id",
         element:<MyEnrollClass/>,
        
+      },
+      {
+        path:"/dashboard/users",
+        element:<Users/>
+      },
+      {
+        path:"/dashboard/myProfile",
+        element:<MyProfile/>
       }
       ]
 
      
+    },
+    {
+      path:'/*',
+      element:<Error/>
     }
   ]);
 

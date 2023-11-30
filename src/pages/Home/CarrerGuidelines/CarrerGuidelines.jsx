@@ -19,7 +19,10 @@ const CarrerGuidelines = () => {
                             </p>
                         </div>
                        
-                        <div className="p-4 italic text-center bg-gradient-to-r from-purple-200 hover:from-violet-300 hover:to-blue-200">
+                        <div className="p-4 italic text-center
+                        bg-gradient-to-r from-purple-200 hover:from-violet-300 hover:to-blue-200
+
+                         ">
                                 <p className="font-semibold text-xl ">
                                 Some Resources You can Look to:
                                 <br />

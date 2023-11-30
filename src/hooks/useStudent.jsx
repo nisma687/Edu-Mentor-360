@@ -14,7 +14,8 @@ const useStudent = () => {
         axiosSecure.get(`/payments/${user?.email}`)
         .then(res=>{
             // console.log(res.data);
-            setStudent(res.data);
+            if(res.data){
+                setStudent(res.data);
             setLoading(false);
             const userinfo={
                 role:"student",
@@ -27,6 +28,7 @@ const useStudent = () => {
             .catch(err=>{
                 console.log(err);
             })
+            }
         })
         .catch(err=>{
             console.log(err);

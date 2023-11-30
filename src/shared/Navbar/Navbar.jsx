@@ -11,7 +11,7 @@ const Navbar = () => {
     .then((result)=>{
       console.log(result);
       Swal.fire({
-        position: "middle",
+        position: "top-end",
         icon: "success",
         title: "LogOut Successfully",
         showConfirmButton: false,

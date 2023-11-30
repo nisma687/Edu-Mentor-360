@@ -41,7 +41,8 @@ const AllClasses = () => {
                             {item?.name}
                             </span>
                         </p>
-                      <div className="card-actions">
+                      <div 
+                      className="card-actions tooltip" data-tip="Click Me!!">
                        <Link to={`/courseDetails/${item?._id}`} >
                        <button className="btn btn-primary">Enroll</button>
                        </Link>

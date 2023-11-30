@@ -29,19 +29,30 @@ const DashBoard = () => {
     <ul className="menu mt-12 ml-10">
      
        {
-        isTeacher && <li>
+        isTeacher && <>
+         <li>
 
-        <NavLink
-           to="/dashboard/teacher/addCourse"
-        className="uppercase"
+         <NavLink
+            to="/dashboard/teacher/addCourse"
+         className="uppercase"
          >
             Add Course
-           </NavLink>
-     </li>
+            </NavLink>
+         </li>
+         <li>
+
+         <NavLink
+            to="/dashboard/teacher/myCourses"
+         className="uppercase"
+         >
+            My Course
+            </NavLink>
+         </li>
+        </>
        }
 
        {/* admin routes */}
-      {    !student && !isTeacher &&
+      {    !student && !isTeacher  &&
             <>
               <li>
          <NavLink
@@ -49,6 +60,14 @@ const DashBoard = () => {
          className="uppercase"
           >
           Teacher Requests
+            </NavLink>
+      </li>
+              <li>
+         <NavLink
+            to="/dashboard/users"
+         className="uppercase"
+          >
+            Users
             </NavLink>
       </li>
       <li>
@@ -86,6 +105,13 @@ const DashBoard = () => {
          className="uppercase"
           >
            Home</NavLink>
+      </li>
+      <li>
+         <NavLink
+            to="/dashboard/myProfile"
+         className="uppercase"
+          >
+           My Profile</NavLink>
       </li>
       
     

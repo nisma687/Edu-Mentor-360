@@ -21,22 +21,31 @@ const RequestsTeacher = () => {
     }
 
 
-    const handleApprove=async(id)=>{
-        console.log("approve",id);
+    const handleApprove=async(email,id)=>{
+        console.log("approve",email,id);
         const info={
-            status:"Approved"
+            role:"teacher",
         }
-      const res=await axiosSecure.patch(`/teacherRequest/${id}`,info);
+      const res=await axiosSecure.patch(`/users/${email}`,info);
         console.log(res.data);
-        if(res.data.modifiedCount){
-            refetch();
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Approval Done Successfully",
-                showConfirmButton: false,
-                timer: 1500
-              });
+        if(res.data.modifiedCount)
+        {
+          const inform={
+            status:"Approved"
+          }
+          const res2=await axiosSecure.patch(`/teacherRequest/${id}`,inform);
+            console.log(res2.data);
+            if(res2.data.modifiedCount){
+              refetch();
+              Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Approval Done Successfully",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+            }
+           
 
         }
 
@@ -54,16 +63,19 @@ const RequestsTeacher = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, reject it!"
           }).then(async(result) => {
             if (result.isConfirmed) {
-                const res=await axiosSecure.delete(`/teacherRequest/${id}`);
+                const info={
+                    status:"Rejected"
+                }
+                const res=await axiosSecure.patch(`/teacherRequest/${id}`,info);
                 console.log(res.data);
-                if(res.data.deletedCount){
+                if(res.data.modifiedCount){
                     refetch();
                     Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
+                        title: "Rejected!",
+                        text: "This request has been rejected.",
                         icon: "success"
                       });
         
@@ -129,8 +141,8 @@ const RequestsTeacher = () => {
                 <td>{item?.status}</td>
                 <th>
                   <button 
-                  onClick={()=>handleApprove(item._id)}
-                  disabled={item?.status==="Approved"}
+                  onClick={()=>handleApprove(item.email,item._id)}
+                  disabled={item?.status==="Approved"|| item?.status==="Rejected"}
                   className="btn
                   bg-green-500
                    btn-ghost btn-xs">Approve</button>

@@ -35,9 +35,12 @@ const TeacherSection = () => {
                         We are always looking for talented teachers to join our team.
                         If you are interested in teaching with us, please send your CV to and other details to us.By becoming a teacher with us, you will be able to reach out to a large number of students and help them learn.
                     </p>
+                   <div className="tooltip" data-tip="Apply Now">
                    <Link to="/teachOnEduMentor">
-                    <button className="btn btn-primary mt-4">Apply Now</button>
+                    <button className="btn
+                     btn-primary mt-4">Apply Now</button>
                    </Link>
+                   </div>
                 </div>
 
 
